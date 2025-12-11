@@ -69,8 +69,8 @@ class AdminController extends Controller
 
         $product->update($validated);
 
-        if (request()->filled('delete_images')) {
-            foreach (request('delete_images') as $imageId) {
+        if (!empty($validated['delete_images'])) {
+            foreach ($validated['delete_images'] as $imageId) {
                 $image = $product->images()->find($imageId);
                 if ($image) {
                     \Storage::delete($image->path);
@@ -79,18 +79,18 @@ class AdminController extends Controller
             }
         }
 
-        if (request()->filled('main_image')) {
+        if (!empty($validated['main_image'])) {
             $product->images()->update(['is_main' => false]);
-            $mainImage = $product->images()->find(request('main_image'));
+
+            $mainImage = $product->images()->find($validated['main_image']);
             if ($mainImage) {
-                $mainImage->is_main = true;
-                $mainImage->save();
+                $mainImage->update(['is_main' => true]);
             }
         }
 
         if (request()->hasFile('images')) {
             foreach (request()->file('images') as $file) {
-                $path = $file->store('products', 'public'); // сохраняем в storage/app/public/products
+                $path = $file->store('products', 'public');
                 $product->images()->create([
                     'path' => $path,
                     'is_main' => false,
@@ -101,8 +101,6 @@ class AdminController extends Controller
         return redirect()->route('admin.products.show', $product->id)
             ->with('success', 'Запись успешно обновлена!');
     }
-
-
 
     public function destroy($id) {
         $product = Product::findOrFail($id);

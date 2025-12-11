@@ -115,20 +115,17 @@
                         ">
                             @foreach($product->images as $img)
                                 <div class="img-wrap">
+                                    <img src="{{ asset('storage/' . $img->path) }}" alt="img">
 
-                                    <img src="{{ asset('storage/' . $img->path) }}"
-                                         alt="img">
+                                    <div class="img-delete-btn" onclick="toggleDelete({{ $img->id }}, this)">×</div>
+                                    <input type="checkbox" name="delete_images[]" value="{{ $img->id }}" id="delete_{{ $img->id }}" style="display:none;">
 
-                                    <div class="img-delete-btn"
-                                         onclick="toggleDelete({{ $img->id }}, this)">
-                                        ×
+                                    <div style="position:absolute; bottom:6px; left:6px; background: rgba(255,255,255,0.8); padding:2px 6px; border-radius:4px;">
+                                        <label style="cursor:pointer;">
+                                            <input type="radio" name="main_image" value="{{ $img->id }}" {{ $img->is_main ? 'checked' : '' }}>
+                                            Главное
+                                        </label>
                                     </div>
-
-                                    <input type="checkbox"
-                                           name="delete_images[]"
-                                           value="{{ $img->id }}"
-                                           id="delete_{{ $img->id }}"
-                                           style="display:none;">
                                 </div>
                             @endforeach
                         </div>
