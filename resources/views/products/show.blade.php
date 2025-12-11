@@ -22,7 +22,6 @@
 
                 <div style="margin-bottom:20px;">
 
-                    {{-- Большое фото --}}
                     <img id="mainImage"
                          src="{{ $firstImage }}"
                          alt="{{ $product->name }}"
@@ -35,7 +34,6 @@
                              margin-bottom:12px;
                          ">
 
-                    {{-- Превью --}}
                     <div style="
                         display:flex;
                         gap:12px;
@@ -62,17 +60,18 @@
                 </div>
             @endif
 
-            {{-- НАЗВАНИЕ --}}
             <h1 style="margin-bottom:10px;">
                 {{ $product->name }}
             </h1>
 
-            {{-- ОПИСАНИЕ --}}
+            <h2 style="margin-bottom:10px; font-size:20px; font-weight: bold;">
+                Категория - {{ $product->category->name }}
+            </h2>
+
             <p style="color:#555; font-size:15px; line-height:1.5;">
                 {{ $product->description }}
             </p>
 
-            {{-- ЦЕНА + КНОПКИ --}}
             <div style="
                 display:flex;
                 justify-content:space-between;

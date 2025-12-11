@@ -63,9 +63,11 @@
                 {{ $product->name }}
             </h1>
 
-            <p style="color:#555; font-size:15px; line-height:1.5;">
-                {{ $product->description }}
-            </p>
+            <h2 style="margin-bottom:10px; font-size:20px; font-weight: bold;">
+            Категория - {{ $product->category->name }}
+            </h2>
+
+            <p>{{ $product->description }}</p>
 
             <div style="
                 display:flex;
